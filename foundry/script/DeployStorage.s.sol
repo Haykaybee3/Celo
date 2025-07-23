@@ -6,11 +6,18 @@ import {Storage} from "../src/Storage.sol";
 
 contract DeployStorage is Script {
     function run() public {
-        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        string memory privateKeyStr = vm.envString("PRIVATE_KEY");
+        uint256 deployerPrivateKey;
+        
+        if (bytes(privateKeyStr).length > 2 && bytes(privateKeyStr)[0] == "0" && bytes(privateKeyStr)[1] == "x") {
+            deployerPrivateKey = vm.parseUint(privateKeyStr);
+        } else {
+            deployerPrivateKey = vm.parseUint(string(abi.encodePacked("0x", privateKeyStr)));
+        }
         
         vm.startBroadcast(deployerPrivateKey);
-        Storage storage = new Storage();
-        console.log("Storage deployed to:", address(storage));
+        Storage storageContract = new Storage();
+        console.log("Storage deployed to:", address(storageContract));
         vm.stopBroadcast();
     }
 } 
