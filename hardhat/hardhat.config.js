@@ -5,8 +5,7 @@ module.exports = {
   solidity: "0.8.28",
   defaultNetwork: "alfajores",
 
-  networks: {
-    
+  networks: {  
     alfajores: {
       url: "https://alfajores-forno.celo-testnet.org",
       accounts: vars.has("PRIVATE_KEY") ? [vars.get("PRIVATE_KEY")] : [],
@@ -19,8 +18,8 @@ module.exports = {
     apiKey: vars.get("ETHERSCAN_API_KEY"),
     customChains: [
       {
-       
         network: "alfajores",
+        chainId: 44787,
         urls: {
           apiURL: "https://explorer.celo.org/alfajores/api",
           browserURL: "https://explorer.celo.org/alfajores",
